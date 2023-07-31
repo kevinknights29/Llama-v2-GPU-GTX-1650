@@ -1,0 +1,2 @@
+bandit # to leverage vscode bandit extension
+llama-cpp-python
