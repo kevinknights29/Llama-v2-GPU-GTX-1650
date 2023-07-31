@@ -1,0 +1,36 @@
+{
+    "name": "App",
+    "build":{
+        "dockerfile": "Dockerfile",
+        "context": "."
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "python.defaultInterpreterPath": "/opt/app/.venv/bin/python"
+            },
+            "extensions": [
+                "charliermarsh.ruff",
+                "DavidAnson.vscode-markdownlint",
+                "dotenv.dotenv-vscode",
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "KevinRose.vsc-python-indent",
+                "ms-azuretools.vscode-docker",
+                "ms-python.black-formatter",
+                "ms-python.isort",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-vscode-remote.remote-containers",
+                "njpwerner.autodocstring",
+                "ptweir.python-string-sql",
+                "redhat.vscode-yaml",
+                "tomoki1207.pdf",
+                "usernamehw.errorlens",
+                "VisualStudioExptTeam.intellicode-api-usage-examples",
+                "VisualStudioExptTeam.vscodeintellicode"
+            ]
+        }
+    },
+    "runArgs": ["--env-file",".devcontainer/devcontainer.env"]
+}
