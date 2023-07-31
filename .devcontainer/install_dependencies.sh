@@ -27,7 +27,7 @@ source .venv/bin/activate
 REQUIREMENTS_FILE=$1
 
 # Set llama.cpp environment variables
-export CMAKE_ARGS="-DLLAMA_BLAS=ON -DLLAMA_BLAS_VENDOR=OpenBLAS"
+export CMAKE_ARGS="-DLLAMA_CUBLAS=ON"
 export FORCE_CMAKE=1
 
 # Install the Python packages
