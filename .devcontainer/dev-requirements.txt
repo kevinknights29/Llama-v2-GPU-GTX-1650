@@ -1,2 +1,4 @@
 bandit # to leverage vscode bandit extension
+gradio
+langchain
 llama-cpp-python
