@@ -19,6 +19,13 @@ RUN mkdir -p models && \
 # Copy files
 COPY install_dependencies.sh .
 COPY dev-requirements.txt .
+COPY install_cuda_toolkit.sh .
+
+# Grant ROOT access
+USER root
+
+# Install CUDA Toolkit
+RUN bash ./install_cuda_toolkit.sh
 
 # Install dependencies
 RUN bash ./install_dependencies.sh ./dev-requirements.txt
