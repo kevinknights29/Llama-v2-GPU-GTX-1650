@@ -7,9 +7,8 @@ if [ -z "$1" ]; then
 fi
 
 # Installing prerequisites
-apt-get update && \
-    apt-get install -y \
-    build-essential \
+apt update && \
+    apt install -y \
     python3-launchpadlib \
     python3-dev \
     python3-pip \
