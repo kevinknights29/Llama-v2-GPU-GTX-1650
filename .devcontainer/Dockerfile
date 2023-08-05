@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.2.0-base-ubuntu22.04
+FROM nvidia/cuda:12.2.0-devel-ubuntu22.04
 
 ENV LANG=C.UTF-8
 
@@ -29,20 +29,20 @@ RUN bash /opt/install_python.sh && rm /opt/install_python.sh
 # Set working directory
 WORKDIR /opt/app
 
-# Download models
-RUN mkdir -p models && \
-    cd models && \
-    wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/resolve/main/llama-2-7b-chat.ggmlv3.q4_0.bin
-
 # Copy files
 COPY install_cuda_toolkit.sh .
+COPY download_model.sh .
 COPY install_dependencies.sh .
 COPY dev-requirements.txt .
 
 # Commented out, using CUDA 12.2.0 Docker image
 # Install CUDA Toolkit
-RUN bash ./install_cuda_toolkit.sh && \
-    rm ./install_cuda_toolkit.sh
+# RUN bash ./install_cuda_toolkit.sh && \
+#     rm ./install_cuda_toolkit.sh
+
+# Download model
+RUN bash ./download_model.sh && \
+    rm ./download_model.sh
 
 # Install dependencies
 RUN bash ./install_dependencies.sh ./dev-requirements.txt && \
