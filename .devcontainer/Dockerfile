@@ -35,13 +35,14 @@ RUN mkdir -p models && \
     wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/resolve/main/llama-2-7b-chat.ggmlv3.q4_0.bin
 
 # Copy files
-# COPY install_cuda_toolkit.sh .
+COPY install_cuda_toolkit.sh .
 COPY install_dependencies.sh .
 COPY dev-requirements.txt .
 
 # Commented out, using CUDA 12.2.0 Docker image
 # Install CUDA Toolkit
-# RUN bash ./install_cuda_toolkit.sh
+RUN bash ./install_cuda_toolkit.sh && \
+    rm ./install_cuda_toolkit.sh
 
 # Install dependencies
 RUN bash ./install_dependencies.sh ./dev-requirements.txt && \
