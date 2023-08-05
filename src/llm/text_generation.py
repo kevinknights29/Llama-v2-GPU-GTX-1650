@@ -50,11 +50,12 @@ def _llm_init(model_params=None):
     # Make sure the model path is correct for your system!
     llm = LlamaCpp(
         model_path=_model_path,
-        input=model_params,
-        n_gpu_layers=_n_gpu_layers,
-        n_batch=_n_batch,
         callback_manager=_callback_manager,
         verbose=True,
+        # model parameters
+        n_gpu_layers=_n_gpu_layers,
+        n_batch=_n_batch,
+        temperature=model_params["temperature"],
     )
     return llm
 

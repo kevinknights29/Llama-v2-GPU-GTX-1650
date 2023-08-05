@@ -7,9 +7,8 @@ if [ -z "$1" ]; then
 fi
 
 # Installing prerequisites
-apt-get update && \
-    apt-get install -y \
-    build-essential \
+apt update && \
+    apt install -y \
     python3-launchpadlib \
     python3-dev \
     python3-pip \
@@ -26,9 +25,10 @@ source .venv/bin/activate
 # Set the path of the requirements.txt file
 REQUIREMENTS_FILE=$1
 
-# Set llama.cpp environment variables
-export CMAKE_ARGS="-DLLAMA_CUBLAS=ON"
-export FORCE_CMAKE=1
-
 # Install the Python packages
 pip3 install -r $REQUIREMENTS_FILE
+
+# Set llama.cpp environment variables
+export LLAMA_CUBLAS=1
+# Install llama.cpp
+CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 pip install --ignore-installed --force-reinstall --upgrade --no-cache-dir llama-cpp-python

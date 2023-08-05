@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 def find_model(
-    model_dir=os.environ.get("MODEL_DIR", "/opt/app/models"),
+    model_dir=os.environ.get("MODEL_DIR", "/opt/models"),
     pattern="*.bin",
 ):
     model_path = Path(model_dir)
