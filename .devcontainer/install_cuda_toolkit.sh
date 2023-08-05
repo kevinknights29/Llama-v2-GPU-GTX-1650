@@ -16,3 +16,9 @@ dpkg -i cuda-repo-wsl-ubuntu-12-2-local_12.2.1-1_amd64.deb
 cp /var/cuda-repo-wsl-ubuntu-12-2-local/cuda-*-keyring.gpg /usr/share/keyrings/
 apt update
 apt install -y cuda
+
+# Add CUDA to the PATH
+# Append the export commands to ~/.bashrc
+echo "export PATH=\"/usr/local/cuda-12.2/bin:$PATH\"" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=\"/usr/local/cuda-12.2/lib64:$LD_LIBRARY_PATH\"" >> ~/.bashrc
+source ~/.bashrc
