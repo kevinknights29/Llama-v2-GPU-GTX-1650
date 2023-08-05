@@ -1,4 +1,4 @@
 bandit # to leverage vscode bandit extension
 gradio
 langchain
-llama-cpp-python
+# llama-cpp-python # installed directly in the install script
