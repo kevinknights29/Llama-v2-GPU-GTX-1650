@@ -19,6 +19,6 @@ apt install -y cuda
 
 # Add CUDA to the PATH
 # Append the export commands to ~/.bashrc
-echo "export PATH=\"/usr/local/cuda-12.2/bin:$PATH\"" >> ~/.bashrc
-echo "export LD_LIBRARY_PATH=\"/usr/local/cuda-12.2/lib64:$LD_LIBRARY_PATH\"" >> ~/.bashrc
+echo -e "export PATH=\"/usr/local/cuda-12.2/bin:$PATH\"\n" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=\"/usr/local/cuda-12.2/lib64:$LD_LIBRARY_PATH\"\n" >> ~/.bashrc
 source ~/.bashrc
