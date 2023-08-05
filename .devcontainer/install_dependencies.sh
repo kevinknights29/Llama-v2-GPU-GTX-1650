@@ -25,9 +25,10 @@ source .venv/bin/activate
 # Set the path of the requirements.txt file
 REQUIREMENTS_FILE=$1
 
-# Set llama.cpp environment variables
-export CMAKE_ARGS="-D LLAMA_CUBLAS=ON -D CMAKE_CUDA_COMPILER=$(which nvcc)"
-export FORCE_CMAKE=1
-
 # Install the Python packages
 pip3 install -r $REQUIREMENTS_FILE
+
+# Set llama.cpp environment variables
+export LLAMA_CUBLAS=1
+# Install llama.cpp
+CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 pip install --ignore-installed --force-reinstall --upgrade --no-cache-dir llama-cpp-python
