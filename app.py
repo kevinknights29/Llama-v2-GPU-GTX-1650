@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import time
 
 import gradio as gr
 
@@ -28,18 +29,24 @@ def _build_prompt(msg, hist, system):
     return prompt
 
 
+def user(msg, hist):
+    return "", hist + [[msg, None]]
+
+
 def predict(msg, hist, system):
     if system is None or system == "":
         system = METAPROMPT
     prompt = _build_prompt(msg, hist, system)
-    response = text_generation.generate_text(prompt)
-    hist = hist + [[msg, response]]
-    return hist, ""
+    hist[-1][1] = ""
+    for character in text_generation.generate_text(prompt):
+        hist[-1][1] += character
+        time.sleep(0.05)
+        yield hist
 
 
 with gr.Blocks("Llama v2 7b Chatbot") as demo:
     chatbot = gr.Chatbot(height=400, width=400)
-    msg = gr.Textbox(label="Prompt", lines=2, placeholder="Type your prompt here:")
+    msg = gr.Textbox(label="Prompt", lines=1, placeholder="Type your prompt here:")
 
     with gr.Accordion(label="Advanced options", open=False):
         system = gr.Textbox(
@@ -58,8 +65,18 @@ with gr.Blocks("Llama v2 7b Chatbot") as demo:
     btn = gr.Button(label="Submit")
     clear = gr.ClearButton(components=[msg, chatbot], value="Clear console")
 
-    btn.click(predict, inputs=[msg, chatbot, system], outputs=[chatbot, msg])
-    msg.submit(predict, inputs=[msg, chatbot, system], outputs=[chatbot, msg])
+    btn.click(user, inputs=[msg, chatbot], outputs=[msg, chatbot], queue=False).then(
+        predict,
+        inputs=[msg, chatbot, system],
+        outputs=chatbot,
+    )
+    msg.submit(user, inputs=[msg, chatbot], outputs=[msg, chatbot], queue=False).then(
+        predict,
+        inputs=[msg, chatbot, system],
+        outputs=chatbot,
+    )
+    clear.click(lambda: None, None, chatbot, queue=False)
+
 
 if __name__ == "__main__":
     demo.queue().launch(debug=True, server_port=int(os.environ.get("PORT", 7860)))
