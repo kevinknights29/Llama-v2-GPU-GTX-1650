@@ -13,3 +13,7 @@ You need to install [NVIDA CUDA Container Toolkit](https://github.com/NVIDIA/nvi
 ### Llama.cpp recognizing cuBLAS optimizer
 
 ![image](https://github.com/kevinknights29/Llama-v2-GPU-GTX-1650/assets/74464814/d9a0a31c-1f11-48af-a12a-6ebf39dad33d)
+
+### Streaming support
+
+https://github.com/kevinknights29/Llama-v2-GPU-GTX-1650/assets/74464814/af8d771a-a750-4361-a7f4-ca646087a087
