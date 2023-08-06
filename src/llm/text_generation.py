@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 
-from langchain import LLMChain
 from langchain import PromptTemplate
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
@@ -63,8 +62,8 @@ def _llm_init(model_params=None):
 def generate_text(prompt):
     global LLM_CHAIN
     if LLM_CHAIN is None:
-        _llm = _llm_init()
-        llm_chain = LLMChain(prompt=_build_prompt(), llm=_llm)
-        LLM_CHAIN = llm_chain
-    response = LLM_CHAIN.run(prompt)
+        # _llm = _llm_init()
+        # llm_chain = LLMChain(prompt=_build_prompt(), llm=_llm)
+        LLM_CHAIN = _llm_init()
+    response = LLM_CHAIN.stream(prompt)
     return response
