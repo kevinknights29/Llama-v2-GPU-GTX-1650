@@ -40,10 +40,10 @@ COPY dev-requirements.txt .
 # RUN bash ./install_cuda_toolkit.sh && \
 #     rm ./install_cuda_toolkit.sh
 
-# Download model
-RUN bash ./download_model.sh && \
-    rm ./download_model.sh
-
 # Install dependencies
 RUN bash ./install_dependencies.sh ./dev-requirements.txt && \
     rm ./install_dependencies.sh ./dev-requirements.txt
+
+# Download model
+RUN bash ./download_model.sh && \
+    rm ./download_model.sh
