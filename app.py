@@ -44,8 +44,9 @@ def predict(msg, hist, system):
         yield hist
 
 
-with gr.Blocks("Llama v2 7b Chatbot") as demo:
-    chatbot = gr.Chatbot(height=400, width=400)
+with gr.Blocks() as demo:
+    gr.Markdown("# Llama v2 7b Chatbot")
+    chatbot = gr.Chatbot(height=400)
     msg = gr.Textbox(label="Prompt", lines=1, placeholder="Type your prompt here:")
 
     with gr.Accordion(label="Advanced options", open=False):
@@ -58,7 +59,7 @@ with gr.Blocks("Llama v2 7b Chatbot") as demo:
             minimum=0,
             maximum=1,
             step=0.1,
-            default=0.1,
+            value=0.1,
             label="Temperature",
         )
 
@@ -79,4 +80,9 @@ with gr.Blocks("Llama v2 7b Chatbot") as demo:
 
 
 if __name__ == "__main__":
-    demo.queue().launch(debug=True, server_port=int(os.environ.get("PORT", 7860)))
+    demo.queue().launch(
+        debug=False,
+        width=400,
+        server_name="0.0.0.0",
+        server_port=int(os.environ.get("PORT", 7860)),
+    )

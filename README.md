@@ -27,3 +27,52 @@ N_THREADS=4
 ### Streaming support
 
 https://github.com/kevinknights29/Llama-v2-GPU-GTX-1650/assets/74464814/af8d771a-a750-4361-a7f4-ca646087a087
+
+## Usage
+
+### Build APP Image
+
+```bash
+docker compose build
+```
+
+### Get everything up and running
+
+```bash
+docker compose down && docker compose up -d
+```
+
+### Have fun
+
+Visit: `http://localhost:7861/` to access the Gradio Chatbot UI.
+
+## Contributing
+
+### Installing pre-commit
+
+Pre-commit is already part of this project dependencies.
+If you would like to installed it as standalone run:
+
+```bash
+pip install pre-commit
+```
+
+To activate pre-commit run the following commands:
+
+- Install Git hooks:
+
+```bash
+pre-commit install
+```
+
+- Update current hooks:
+
+```bash
+pre-commit autoupdate
+```
+
+To test your installation of pre-commit run:
+
+```bash
+pre-commit run --all-files
+```
