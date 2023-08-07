@@ -1,0 +1,3 @@
+gradio
+langchain
+# llama-cpp-python # installed directly in the install_depencies script
