@@ -40,4 +40,4 @@ RUN bash ./download_model.sh && rm ./download_model.sh
 EXPOSE 7860
 
 # Run APP
-ENTRYPOINT ["python", "app.py"]
+CMD ["python", "app.py"]
