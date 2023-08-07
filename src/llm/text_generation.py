@@ -36,12 +36,16 @@ def _llm_init(model_params=None):
     _model_path = utils.find_model()
     _n_gpu_layers = os.environ.get(
         "N_GPU_LAYERS",
-        40,
+        35,
     )  # Change this value based on your model and your GPU VRAM pool.
     _n_batch = os.environ.get(
         "N_BATCH",
         512,
     )  # Should be between 1 and n_ctx, consider the amount of VRAM in your GPU.
+    _n_threads = os.environ.get(
+        "N_THREADS",
+        4,
+    )  # Change this value based on your CPU cores.
     # Callbacks support token-wise streaming
     _callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
     # Verbose is required to pass to the callback manager
@@ -54,6 +58,9 @@ def _llm_init(model_params=None):
         # model parameters
         n_gpu_layers=_n_gpu_layers,
         n_batch=_n_batch,
+        n_threads=_n_threads,
+        use_mmap=True,
+        use_mlock=True,
         temperature=model_params["temperature"],
     )
     return llm
@@ -62,6 +69,7 @@ def _llm_init(model_params=None):
 def generate_text(prompt):
     global LLM_CHAIN
     if LLM_CHAIN is None:
+        # Commented out to support streaming
         # _llm = _llm_init()
         # llm_chain = LLMChain(prompt=_build_prompt(), llm=_llm)
         LLM_CHAIN = _llm_init()
