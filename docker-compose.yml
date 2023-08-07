@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+    app-service:
+        build:
+          context: .  # Path to Dockerfile of app-service
+          dockerfile: Dockerfile
+        deploy:
+          resources:
+            reservations:
+              devices:
+                - driver: nvidia
+                  count: all
+                  capabilities: [gpu]
+        ports:
+            - 7861:7860
+        environment:
+            MODEL_DIR: /opt/models
+            PORT: 7860
+            N_GPU_LAYERS: 35
+            N_BATCH: 4096
+            N_THREADS: 4
+            LLAMA_CUBLAS: 1
