@@ -15,4 +15,4 @@ python -m pip install -r $REQUIREMENTS_FILE
 # Set llama.cpp environment variables
 export LLAMA_CUBLAS=1
 # Install llama.cpp
-CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 pip install --ignore-installed --force-reinstall --upgrade --no-cache-dir llama-cpp-python
+CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 python -m pip install llama-cpp-python
