@@ -33,12 +33,12 @@ def user(msg, hist):
     return "", hist + [[msg, None]]
 
 
-def predict(msg, hist, system):
+def predict(msg, hist, system, **kwargs):
     if system is None or system == "":
         system = METAPROMPT
     prompt = _build_prompt(msg, hist, system)
     hist[-1][1] = ""
-    for character in text_generation.generate_text(prompt):
+    for character in text_generation.generate_text(prompt, **kwargs):
         hist[-1][1] += character
         time.sleep(0.05)
         yield hist
@@ -62,6 +62,27 @@ with gr.Blocks() as demo:
             value=0.1,
             label="Temperature",
         )
+        max_length = gr.Slider(
+            minimum=1,
+            maximum=4096,
+            step=1,
+            value=2000,
+            label="Max Lenght"
+        )
+        top_p = gr.Slider(
+            minimum=0,
+            maximum=1,
+            step=0.05,
+            value=0.95,
+            label="Top P",
+        )
+        top_k = gr.Slider(
+            minimum=1,
+            maximum=100,
+            step=1,
+            value=40,
+            label="Top K"
+        )
 
     btn = gr.Button(label="Submit")
     clear = gr.ClearButton(components=[msg, chatbot], value="Clear console")
@@ -73,7 +94,16 @@ with gr.Blocks() as demo:
     )
     msg.submit(user, inputs=[msg, chatbot], outputs=[msg, chatbot], queue=False).then(
         predict,
-        inputs=[msg, chatbot, system],
+        inputs=[
+            msg, 
+            chatbot, 
+            system,
+            # advanced options
+            temperature,
+            max_length,
+            top_p,
+            top_k,
+        ],
         outputs=chatbot,
     )
     clear.click(lambda: None, None, chatbot, queue=False)
