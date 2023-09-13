@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 
-from langchain import PromptTemplate
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.llms import LlamaCpp
@@ -10,29 +9,13 @@ from langchain.llms import LlamaCpp
 from src.utils import utils
 
 
-LLM_CHAIN = None
-
-
-def _build_prompt(template=None, input_variables=None):
-    if template is None and input_variables is None:
-        template = (
-            "Question: {question}\n"
-            "\n"
-            "Answer: Let's work this out in a step by step way to be sure we have the right answer."
-        )
-        input_variables = ["question"]
-    prompt = PromptTemplate(template=template, input_variables=input_variables)
-    return prompt
-
-
-def _llm_init(model_params=None):
-    if model_params is None:
-        model_params = {
-            "temperature": 0.1,
-            "max_length": 2000,
-            "top_p": 1,
-        }
-
+def _llm_init(**kwargs):
+    model_params = {}
+    model_params["temperature"] = kwargs.get("temperature", 0.1)
+    model_params["max_length"] = kwargs.get("max_length", 2000)
+    model_params["top_p"] = kwargs.get("top_p", 0.95)
+    model_params["top_k"] = kwargs.get("top_p", 40)
+    
     _model_path = utils.find_model()
     _n_gpu_layers = os.environ.get(
         "N_GPU_LAYERS",
@@ -66,12 +49,6 @@ def _llm_init(model_params=None):
     return llm
 
 
-def generate_text(prompt):
-    global LLM_CHAIN
-    if LLM_CHAIN is None:
-        # Commented out to support streaming
-        # _llm = _llm_init()
-        # llm_chain = LLMChain(prompt=_build_prompt(), llm=_llm)
-        LLM_CHAIN = _llm_init()
-    response = LLM_CHAIN.stream(prompt)
+def generate_text(prompt, **kwargs):
+    response = _llm_init(**kwargs).stream(prompt)
     return response

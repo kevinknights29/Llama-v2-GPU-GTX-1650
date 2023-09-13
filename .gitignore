@@ -1,3 +1,6 @@
+# Project
+models/
+
 # Pre-commit hook folders
 .ruff_cache/
 

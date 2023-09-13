@@ -30,13 +30,13 @@ RUN bash /opt/install_python.sh && rm /opt/install_python.sh
 WORKDIR /opt/app
 
 # Copy files
-COPY install_cuda_toolkit.sh .
 COPY download_model.sh .
 COPY install_dependencies.sh .
 COPY dev-requirements.txt .
 
 # Commented out, using CUDA 12.2.0 Docker image
 # Install CUDA Toolkit
+# COPY install_cuda_toolkit.sh .
 # RUN bash ./install_cuda_toolkit.sh && \
 #     rm ./install_cuda_toolkit.sh
 
@@ -45,5 +45,7 @@ RUN bash ./install_dependencies.sh ./dev-requirements.txt && \
     rm ./install_dependencies.sh ./dev-requirements.txt
 
 # Download model
-RUN bash ./download_model.sh && \
-    rm ./download_model.sh
+# RUN bash ./download_model.sh && \
+#     rm ./download_model.sh
+# For better efficiency download model locally
+#   and copy it to /opt/models/
