@@ -84,7 +84,7 @@ with gr.Blocks() as demo:
             label="Top K"
         )
 
-    btn = gr.Button(label="Submit")
+    btn = gr.Button(value="Submit")
     clear = gr.ClearButton(components=[msg, chatbot], value="Clear console")
 
     btn.click(user, inputs=[msg, chatbot], outputs=[msg, chatbot], queue=False).then(
