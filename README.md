@@ -26,7 +26,11 @@ N_THREADS=4
 
 ### Streaming support
 
-https://github.com/kevinknights29/Llama-v2-GPU-GTX-1650/assets/74464814/af8d771a-a750-4361-a7f4-ca646087a087
+<https://github.com/kevinknights29/Llama-v2-GPU-GTX-1650/assets/74464814/af8d771a-a750-4361-a7f4-ca646087a087>
+
+### Generation Paramaters
+
+![image](https://github.com/kevinknights29/Llama-v2-GPU-GTX-1650/assets/74464814/79c99e90-5531-4f0a-a082-25610737c0d9)
 
 ## Usage
 
